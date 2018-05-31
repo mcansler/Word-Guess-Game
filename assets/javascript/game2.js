@@ -6,6 +6,8 @@ var alphabet = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G',
 
 var chosenWord = words[Math.floor(Math.random() * words.length)];
 var underScore = [];
+var lettersInWord = [];
+var blanks = 0;
 var correctWord = [];
 var wrongWord = [];
 var correctGuess = 0;
@@ -27,6 +29,9 @@ function generateUnderscore(){
 
 console.log(chosenWord);
 
+lettersInWord = chosenWord.split('');
+blanks = lettersInWord.length;
+
 document.onkeypress = function(event){
 	
 	var userguess = event.key;
@@ -37,32 +42,51 @@ document.onkeypress = function(event){
 			
 			myguesses = myguesses + "," + event.key;
 			
+			for(var y = 0; y< blanks; y++)
+			{
+				underScore.push('_');
+				document.getElementsByClassName('underscore').innerHTML = underScore;
+			}	
+			
 			if (chosenWord.indexOf(userguess) > -1) {
+				
+				for(var z = 0; z < blanks; z++)
+					{
+						//Fills in right index with user key
+						if(lettersInWord[z] === userguess)
+						{
+							correctGuess++;
+							underScore[z] = userguess;
+							document.getElementsByClassName('underscore').innerHTML = underScore.join(' ');
+						}
+					}
 		
-				correctWord.push(userguess);
-				underScore[chosenWord.indexOf(userguess)] = userguess;
-				docUnderScore[0].innerHTML = underScore.join(" ");
-				//docCorrectGuess[0].innerHTML = correctWord;
-				correctGuess++;
-			}
-			
-			else {
+//				correctWord.push(userguess);
+//				underScore[chosenWord.indexOf(userguess)] = userguess;
+//				docUnderScore[0].innerHTML = underScore.join(" ");
+//				//docCorrectGuess[0].innerHTML = correctWord;
+//				correctGuess++;
+				
+				if (correctGuess === blanks) {
 
-					//wrongWord.push(userguess);
-					//docWrongGuess[0].innerHTML = wrongWord;
-					guessesLeft = guessesLeft - 1;
+					alert("You Win!!!");
+					guessesLeft = 9;
+					myguesses  = "";
 				}
-				
-			if (correctGuess === chosenWord.length) {
-
-				alert("You Win!!!");
-				guessesLeft = 9;
-				myguesses  = "";
-			}
 	
-			
+//				else {
+//
+//					//wrongWord.push(userguess);
+//					//docWrongGuess[0].innerHTML = wrongWord;
+//					guessesLeft = guessesLeft - 1;
+//				}
 				
-			}
+			}  else
+				{
+					wrongWord.push(userguess);
+					guessesLeft--;
+					
+				}
 	
 			if (guessesLeft === 0)
 			{
@@ -74,7 +98,8 @@ document.onkeypress = function(event){
 			}
 			
 		} 
-		
+	}
+	
 	
 	
 	
