@@ -7,7 +7,6 @@ var alphabet = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G',
 var chosenWord = words[Math.floor(Math.random() * words.length)];
 var underScore = [];
 var correctWord = [];
-var wrongWord = [];
 var correctGuess = 0;
 var guessesLeft = 9;
 var myguesses = "";
@@ -42,16 +41,14 @@ document.onkeypress = function(event){
 				correctWord.push(userguess);
 				underScore[chosenWord.indexOf(userguess)] = userguess;
 				docUnderScore[0].innerHTML = underScore.join(" ");
-				//docCorrectGuess[0].innerHTML = correctWord;
 				correctGuess++;
 			}
 			
 			else {
 
-					//wrongWord.push(userguess);
-					//docWrongGuess[0].innerHTML = wrongWord;
-					guessesLeft = guessesLeft - 1;
-				}
+				guessesLeft = guessesLeft - 1;
+				
+			}
 				
 			if (correctGuess === chosenWord.length) {
 
