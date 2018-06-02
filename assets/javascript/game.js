@@ -1,82 +1,190 @@
-var words = ["Wolverine", "Spiderman", "Luke Cage", "Gambit", "Rogue", "Thor", "Hulk", "Juggernaut"];
+var allWords = ["wolverine", "spiderman", "beast", "gambit", "rogue", "thor", "hulk", "juggernaut", "ironman", "deadpool"];
 
-var alphabet = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h',
-        'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's',
-        'T', 't', 'U', 'u', 'V', 'v', 'W', 'w', 'X', 'x', 'Y', 'y', 'Z', 'z'];
+var hint = ["Don't call me a badger", "The smartest kid in school", "I'm so blue", "I'm dangerous with cards", "I'm a good southern gal", "I was a god", "I have a split personality", "My helmet protects me", "I have a fragile heart", "My favorite color is red"];
 
-var chosenWord = words[Math.floor(Math.random() * words.length)];
-var underScore = [];
-var correctWord = [];
-var correctGuess = 0;
-var guessesLeft = 9;
-var myguesses = "";
+var doubleWord = ['a','b','c',
+				  'd','e','f',
+				  'g','h','i',
+				  'j','k','l',
+				  'm','n','o',
+				  'p','q','r',
+				  's','t','u',
+				  'v','w','x',
+				  'y','z'];
 
-var docUnderScore = document.getElementsByClassName("underscore");
-var myGuess = document.getElementById("letterGuess");
-var remainingGuess = document.getElementById("guessRemaining");
+var wins = 0;
+var losses = 0;
+var guessLetters = [];
+var gameLetters = [];
+var numberOfGueses = 9;
+var pickOneWord = "";
+var rightLetterCount = 0;
 
-function generateUnderscore(){
+
+function Reset()
+{
 	
-	for (var i = 0; i < chosenWord.length; i++){
-		
-		underScore.push("_");
-	}
-	return underScore;
+	//reset values
+	letter = 0;
+	numberOfGueses = 9;
+	gameLetters = [];
+	guessLetters = [];
+	
+	document.querySelector("#letterGuess").innerHTML = guessLetters.join(", ");
+	
+	test = false;
+	StartGame();
 }
 
-console.log(chosenWord);
 
-document.onkeypress = function(event){
-	
-	var userguess = event.key;
-	
-	for (var x = 0; x < alphabet.length; x++){
-		
-		if (userguess === alphabet[x]) {
-			
-			myguesses = myguesses + "," + event.key;
-			
-			if (chosenWord.indexOf(userguess) > -1) {
-		
-				correctWord.push(userguess);
-				underScore[chosenWord.indexOf(userguess)] = userguess;
-				docUnderScore[0].innerHTML = underScore.join(" ");
-				correctGuess++;
-			}
-			
-			else {
 
-				guessesLeft = guessesLeft - 1;
-				
-			}
-				
-			if (correctGuess === chosenWord.length) {
+function StartGame()
+{
 
-				alert("You Win!!!");
-				guessesLeft = 9;
-				myguesses  = "";
-			}
+	var num = Math.floor(Math.random() * allWords.length)
+	pickOneWord = allWords[num];
+	rightLetterCount = pickOneWord.length;
+	//reset values
+	numberOfGueses = 9;
+	gameLetters = [];
+	guessLetters = [];
 	
-			
-				
-			}
+	var doubleWord = ['a','b','c',
+				  'd','e','f',
+				  'g','h','i',
+				  'j','k','l',
+				  'm','n','o',
+				  'p','q','r',
+				  's','t','u',
+				  'v','w','x',
+				  'y','z'];
 	
-			if (guessesLeft === 0)
-			{
-				alert("You Lost!!!");
-				//losses = losses + 1;
-				//resets
-				guessesLeft = 9;
-				myguesses  = "";
-			}
-			
-		} 
+	//console.log(pickOneWord);
+
+	//manipulate the HTML
+	
+	document.getElementById("hints").innerHTML = hint[num];
+	document.querySelector("#wins").innerHTML = wins;
+	document.querySelector("#losses").innerHTML = losses;
+
+	for(var i =0; i < pickOneWord.length; i++)
+	{
+		gameLetters.push("_");
+	}
+
+	document.querySelector(".words").innerHTML = gameLetters.join(", ");
+
+
+}
+
+function CompareLetter(val)
+{
+
+  	console.log('WORKING!');
+	document.getElementById("guessRemaining").innerHTML = numberOfGueses;
+  	guessLetters.push(val);
+  	document.querySelector("#letterGuess").innerHTML = guessLetters.join(", ");
+  	var guessedCorrectly = false;
+  	
+  	
+
+  for(var i=0;i<pickOneWord.length; i++)
+  {
+  	if(val === pickOneWord[i])
+  	{
+  		guessedCorrectly = true;
+  		gameLetters[i] = val;
+  		document.querySelector(".words").innerHTML = gameLetters.join(", ");
+  		rightLetterCount--;
+  		
+  	} 	  
+  }
+	
+	if(guessedCorrectly == false)
+  	{
 		
+  	numberOfGueses = numberOfGueses - 1;
+	document.getElementById("guessRemaining").innerHTML = numberOfGueses;	
+  	
+	}	
 	
+	if(numberOfGueses === 0)
+    {
+		alert("You Lost!!!");
+		losses++;
+		document.querySelector("#losses").innerHTML = losses;
+		doubleWord = ['a','b','c',
+				  'd','e','f',
+				  'g','h','i',
+				  'j','k','l',
+				  'm','n','o',
+				  'p','q','r',
+				  's','t','u',
+				  'v','w','x',
+				  'y','z'];
+	  	Reset();
+    }
+	  
+    if(rightLetterCount === 0)
+    {
+  	  
+		alert("You Win!!!");
+		wins++;
+		document.querySelector("#wins").innerHTML = wins;
+		doubleWord = ['a','b','c',
+				  'd','e','f',
+				  'g','h','i',
+				  'j','k','l',
+				  'm','n','o',
+				  'p','q','r',
+				  's','t','u',
+				  'v','w','x',
+				  'y','z'];
+	  	Reset();
+    }
+
+
+//  if(guessedCorrectly == false)
+//  {
+//  	numberOfGueses--;
+//  }
+
+  
+//  	losses++;
+  	
+  
+
+  
+//	  wins++;
+  	
+  
+}
+
+StartGame();
+
+
+document.onkeyup = function(event){
+
+
+
+if(event.keyCode >= 65 && event.keyCode <= 90)
+{
+	console.log('Keycode WORKING!');
+	test = true;
+	var letter = String.fromCharCode(event.keyCode).toLowerCase();
+	for(var i = 0; i < doubleWord.length; i++)
+	{	
+		if(letter === doubleWord[i] && test === true)
+		{
+			var spliceDword = doubleWord.splice(i,1);
+			//Test / Debug
+			//console.log('Double word is = ' + doubleWord[i]);
+			//console.log('Spliced Word is = ' + spliceDword);
+
+			//console.log(doubleWord);
+			CompareLetter(letter);
+		}
 	
-	
-	myGuess.innerHTML = myguesses;
-	remainingGuess.innerHTML = guessesLeft;
+	}
+}
 };
-
-docUnderScore[0].innerHTML = generateUnderscore().join(" ");

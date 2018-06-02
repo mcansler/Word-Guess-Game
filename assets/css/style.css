@@ -15,12 +15,12 @@ header {
 
 h2 {
 	
-	font-size: 50px;
+	font-size: 30px;
 	text-align: center;
-	margin: 80px auto;
+	margin: 40px auto;
 }
 
-.underscore {
+.words {
 	
 	font-size: 80px;
 	text-align: center;
@@ -29,16 +29,34 @@ h2 {
 
 #letterGuess {
 	
-	font-size: 40px;
+	border: 1px solid black;
+	height: 50px;
+	width: 80%;
+	font-size: 30px;
 	text-align: center;
-	margin-top: 30px;
+	margin: 20px auto;
 	color: green;
 }
 
 #guessRemaining {
 	
-	font-size: 40px;
+	border: 1px solid black;
+	height: 50px;
+	width: 80%;
+	font-size: 30px;
 	text-align: center;
-	margin: 80px auto;
+	margin: 20px auto;
 	color: red;
+}
+
+.col-md-2 {
+	
+	
+	height: 50px;
+}
+
+.col-md-8 {
+	
+	border: 1px solid black;
+	height: 100px;
 }

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	
 <head>
 	
 	<title>Hangman</title>
 	
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
@@ -20,12 +21,44 @@
 			<h1>Marvel Hangman Game</h1>
 		
 		</header>
-			<h2>Current Word</h2><div id="currentWord"></div>
-			<div class="underscore"></div>
-			<h2>Letters Already Guessed</h2><div id="letterGuess"></div>
-			<h2>Number Of Guesses Remaining</h2><div id="guessRemaining"></div>
-	
 	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				Wins:<div id="wins"> </div>
+			</div>
+				
+			<div class="col-md-2">
+				Losses:<div id="losses"> </div>		
+			</div>
+			
+			<div class="col-md-8">
+				Hint:<div id="hints"></div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="container">	
+			
+		<h2 class="subHead">Current Word</h2><div id="currentWord"></div>
+		<div class="words"></div>
+	
+	</div>	
+			
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Letters Already Guessed</h2><div id="letterGuess"></div>
+			</div>
+				
+			<div class="col-md-6">
+				<h2>Guesses Remaining</h2><div id="guessRemaining"></div>		
+			</div>
+			
+		</div>
+	</div>
+		
+	<br>
 	
 
 	
