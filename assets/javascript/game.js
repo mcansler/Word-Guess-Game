@@ -30,7 +30,8 @@ function Reset()
 	gameLetters = [];
 	guessLetters = [];
 	
-	document.querySelector("#letterGuess").innerHTML = guessLetters.join(", ");
+	document.querySelector("#letterGuess").innerHTML = guessLetters.join(" ");
+	document.getElementById("guessRemaining").innerHTML = numberOfGueses;
 	
 	test = false;
 	StartGame();
@@ -72,7 +73,7 @@ function StartGame()
 		gameLetters.push("_");
 	}
 
-	document.querySelector(".words").innerHTML = gameLetters.join(", ");
+	document.querySelector(".words").innerHTML = gameLetters.join(" ");
 
 
 }
@@ -83,7 +84,7 @@ function CompareLetter(val)
   	console.log('WORKING!');
 	document.getElementById("guessRemaining").innerHTML = numberOfGueses;
   	guessLetters.push(val);
-  	document.querySelector("#letterGuess").innerHTML = guessLetters.join(", ");
+  	document.querySelector("#letterGuess").innerHTML = guessLetters.join(" ");
   	var guessedCorrectly = false;
   	
   	
@@ -94,7 +95,7 @@ function CompareLetter(val)
   	{
   		guessedCorrectly = true;
   		gameLetters[i] = val;
-  		document.querySelector(".words").innerHTML = gameLetters.join(", ");
+  		document.querySelector(".words").innerHTML = gameLetters.join(" ");
   		rightLetterCount--;
   		
   	} 	  
@@ -113,6 +114,7 @@ function CompareLetter(val)
 		alert("You Lost!!!");
 		losses++;
 		document.querySelector("#losses").innerHTML = losses;
+		numberOfGueses = 9;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
@@ -131,6 +133,7 @@ function CompareLetter(val)
 		alert("You Win!!!");
 		wins++;
 		document.querySelector("#wins").innerHTML = wins;
+		numberOfGueses = 9;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
@@ -140,7 +143,7 @@ function CompareLetter(val)
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
-	  	Reset();
+		Reset();
     }
 
 
