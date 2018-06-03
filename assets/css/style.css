@@ -61,12 +61,18 @@ h2 {
 	height: 100px;
 }
 
-/*
+
 .hangman {
 	
 	magin: 0 auto;
 	text-align: center;
 
 }
-*/
+
+#hangmanImage {
+	
+	height: 350px;
+	width: 275px;
+		
+}
 

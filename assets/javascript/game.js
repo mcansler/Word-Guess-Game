@@ -124,9 +124,11 @@ function CompareLetter(val)
 	
 	if(numberOfGueses === 0)
     {
-		alert("You Lost!!!");
 		losses++;
 		document.querySelector("#losses").innerHTML = losses;
+		setTimeout(function(){
+			alert("You Lose!!!"); }, 1000);
+		
 		//numberOfGueses = 0;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
@@ -137,15 +139,16 @@ function CompareLetter(val)
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
+		
 	  	setTimeout(Reset, 1000);
     }
 	  
     if(rightLetterCount === 0)
     {
-  	  
-		alert("You Win!!!");
 		wins++;
 		document.querySelector("#wins").innerHTML = wins;
+		setTimeout(function(){
+			alert("You Win!!!"); }, 1000);
 		//numberOfGueses = 9;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
@@ -156,6 +159,7 @@ function CompareLetter(val)
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
+		
 		setTimeout(Reset, 1000);
     }
 
