@@ -2,6 +2,8 @@ var allWords = ["wolverine", "spiderman", "beast", "gambit", "rogue", "thor", "h
 
 var hint = ["Don't call me a badger", "The smartest kid in school", "I'm so blue", "I'm dangerous with cards", "I'm a good southern gal", "I was a god", "I have a split personality", "My helmet protects me", "I have a fragile heart", "My favorite color is red"];
 
+var imageArray = ["assets/images/hangman0.png", "assets/images/hangman1.png", "assets/images/hangman2.png", "assets/images/hangman3.png", "assets/images/hangman4.png", "assets/images/hangman5.png", "assets/images/hangman6.png", "assets/images/hangman7.png", "assets/images/hangman8.png", "assets/images/hangman9.png"];
+
 var doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
@@ -17,6 +19,7 @@ var losses = 0;
 var guessLetters = [];
 var gameLetters = [];
 var numberOfGueses = 9;
+var image = 0;
 var pickOneWord = "";
 var rightLetterCount = 0;
 
@@ -27,11 +30,13 @@ function Reset()
 	//reset values
 	letter = 0;
 	numberOfGueses = 9;
+	image = 0;
 	gameLetters = [];
 	guessLetters = [];
 	
 	document.querySelector("#letterGuess").innerHTML = guessLetters.join(" ");
 	document.getElementById("guessRemaining").innerHTML = numberOfGueses;
+	document.getElementById("hangmanImage").src = imageArray[image];
 	
 	test = false;
 	StartGame();
@@ -67,6 +72,8 @@ function StartGame()
 	document.getElementById("hints").innerHTML = hint[num];
 	document.querySelector("#wins").innerHTML = wins;
 	document.querySelector("#losses").innerHTML = losses;
+	document.getElementById("guessRemaining").innerHTML = numberOfGueses;
+	document.getElementById("hangmanImage").src = imageArray[image];
 
 	for(var i =0; i < pickOneWord.length; i++)
 	{
@@ -101,20 +108,26 @@ function CompareLetter(val)
   	} 	  
   }
 	
-	if(guessedCorrectly == false)
+	if(guessedCorrectly === false)
   	{
 		
-  	numberOfGueses = numberOfGueses - 1;
-	document.getElementById("guessRemaining").innerHTML = numberOfGueses;	
+  		image++;
+		numberOfGueses = numberOfGueses - 1;
+		document.getElementById("guessRemaining").innerHTML = numberOfGueses;
+		document.getElementById("hangmanImage").src = imageArray[image];	
   	
 	}	
+} 
+	
+	function winlose()
+	{
 	
 	if(numberOfGueses === 0)
     {
 		alert("You Lost!!!");
 		losses++;
 		document.querySelector("#losses").innerHTML = losses;
-		numberOfGueses = 9;
+		//numberOfGueses = 0;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
@@ -124,7 +137,7 @@ function CompareLetter(val)
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
-	  	Reset();
+	  	setTimeout(Reset, 1000);
     }
 	  
     if(rightLetterCount === 0)
@@ -133,7 +146,7 @@ function CompareLetter(val)
 		alert("You Win!!!");
 		wins++;
 		document.querySelector("#wins").innerHTML = wins;
-		numberOfGueses = 9;
+		//numberOfGueses = 9;
 		doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
@@ -143,7 +156,7 @@ function CompareLetter(val)
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
-		Reset();
+		setTimeout(Reset, 1000);
     }
 
 
@@ -170,24 +183,28 @@ document.onkeyup = function(event){
 
 
 
+
 if(event.keyCode >= 65 && event.keyCode <= 90)
 {
-	console.log('Keycode WORKING!');
-	test = true;
-	var letter = String.fromCharCode(event.keyCode).toLowerCase();
-	for(var i = 0; i < doubleWord.length; i++)
-	{	
-		if(letter === doubleWord[i] && test === true)
-		{
-			var spliceDword = doubleWord.splice(i,1);
-			//Test / Debug
-			//console.log('Double word is = ' + doubleWord[i]);
-			//console.log('Spliced Word is = ' + spliceDword);
+	if(numberOfGueses >= 1){
+		console.log('Keycode WORKING!');
+		test = true;
+		var letter = String.fromCharCode(event.keyCode).toLowerCase();
+		for(var i = 0; i < doubleWord.length; i++)
+		{	
+			if(letter === doubleWord[i] && test === true)
+			{
+				var spliceDword = doubleWord.splice(i,1);
+				//Test / Debug
+				console.log('Double word is = ' + doubleWord[i]);
+				console.log('Spliced Word is = ' + spliceDword);
 
-			//console.log(doubleWord);
-			CompareLetter(letter);
-		}
+			
+				CompareLetter(letter);
+				
+			}
 	
+		}
 	}
-}
+}	winlose();
 };
