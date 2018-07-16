@@ -1,3 +1,3 @@
-# Word-Guess-Game
+# Hangman Game
 
 https://mcansler.github.io/Word-Guess-Game/
